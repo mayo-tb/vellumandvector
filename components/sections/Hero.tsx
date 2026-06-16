@@ -1,34 +1,7 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
-
-// Animated scroll chevron
-function ScrollChevron() {
-  return (
-    <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 opacity-65 cursor-pointer z-20" onClick={() => {
-      document.querySelector("#about")?.scrollIntoView({ behavior: "smooth" });
-    }}>
-      <span
-        className="text-xs tracking-widest uppercase"
-        style={{ fontFamily: "var(--font-tech)", fontSize: "10px", color: "var(--color-tertiary)", opacity: 0.8 }}
-      >
-        Scroll
-      </span>
-      <svg
-        width="20"
-        height="20"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        className="animate-bounce"
-        style={{ color: "var(--color-secondary)" }}
-      >
-        <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    </div>
-  );
-}
+import React, { useEffect, useState } from "react";
+import Image from "next/image";
 
 export default function Hero() {
   const [mounted, setMounted] = useState(false);
@@ -45,282 +18,173 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex flex-col items-center justify-center overflow-hidden"
+      className="relative flex flex-col items-center justify-center overflow-hidden bg-white"
       style={{
-        minHeight: "100dvh",
-        background: "radial-gradient(circle at 50% 50%, #151e34 0%, #0F172A 100%)",
-        padding: "120px 20px 80px",
+        minHeight: "calc(100vh - 100px)",
+        padding: "60px 0 40px",
       }}
     >
-      {/* Grid Pattern Overlay */}
-      <div className="absolute inset-0 grid-overlay opacity-30 pointer-events-none z-0" />
-
-      {/* Aurora Mesh Blur Backdrops */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden select-none filter blur-[100px] opacity-40 z-0">
-        {/* Blob 1: Orange/coral */}
-        <div
-          className="animate-aurora-1 absolute rounded-full"
-          style={{
-            width: "550px",
-            height: "550px",
-            top: "-10%",
-            right: "5%",
-            background: "radial-gradient(circle, rgba(255,107,53,0.3) 0%, rgba(15,23,42,0) 70%)",
-          }}
-        />
-        {/* Blob 2: Indigo/Violet */}
-        <div
-          className="animate-aurora-2 absolute rounded-full"
-          style={{
-            width: "600px",
-            height: "600px",
-            bottom: "-10%",
-            left: "-5%",
-            background: "radial-gradient(circle, rgba(79,70,229,0.35) 0%, rgba(15,23,42,0) 70%)",
-          }}
-        />
-        {/* Blob 3: Accent/Gold */}
-        <div
-          className="animate-aurora-3 absolute rounded-full"
-          style={{
-            width: "450px",
-            height: "450px",
-            top: "30%",
-            left: "25%",
-            background: "radial-gradient(circle, rgba(212,175,55,0.2) 0%, rgba(15,23,42,0) 70%)",
-          }}
-        />
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10 w-full max-w-4xl mx-auto text-center">
-        {/* Eyebrow tag */}
-        <div
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6 glass glow-card-pulse"
+      {/* Content Container: Two Column Layout */}
+      <div className="max-w-7xl mx-auto w-full flex flex-col lg:flex-row gap-16 lg:gap-8 items-center relative z-10" style={{ padding: "0 clamp(24px, 8vw, 80px)" }}>
+        
+        {/* Left Column (55%) */}
+        <div 
+          className="w-full lg:w-[55%] text-left"
           style={{
             opacity: mounted ? 1 : 0,
-            transform: mounted ? "translateY(0)" : "translateY(16px)",
-            transition: "all 0.8s cubic-bezier(0.16,1,0.3,1) 0.1s",
+            transform: mounted ? "translateY(0)" : "translateY(24px)",
+            transition: "all 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s",
           }}
         >
-          <span
-            className="w-2.5 h-2.5 rounded-full animate-pulse"
-            style={{ 
-              background: "var(--color-secondary)",
-              boxShadow: "0 0 10px var(--color-secondary)"
-            }}
-          />
-          <span
-            style={{
-              fontFamily: "var(--font-tech)",
-              fontSize: "12px",
-              color: "rgba(245,243,240,0.9)",
-              letterSpacing: "0.08em",
-              fontWeight: 600,
-            }}
-          >
-            Lagos GRA · Premium Web Agency
-          </span>
-        </div>
+          {/* Label */}
+          <div className="flex items-center gap-2 mb-[40px]">
+            <div className="w-[6px] h-[6px] rounded-full" style={{ background: "#1B4FD8" }} />
+            <span style={{ fontFamily: "Roboto, sans-serif", fontSize: "12px", fontWeight: 500, color: "#6B7280" }}>
+              Lagos GRA · Premium Web Studio
+            </span>
+          </div>
 
-        {/* Main Headline with staggered animation */}
-        <h1
-          style={{
-            fontFamily: "var(--font-headline)",
-            fontSize: "clamp(38px, 7.5vw, 84px)",
-            fontWeight: 800,
-            lineHeight: 1.05,
-            letterSpacing: "-0.03em",
-            color: "#ffffff",
-            marginBottom: "28px",
-          }}
-        >
-          {/* Staggered Words */}
-          <span 
-            className="inline-block" 
+          {/* Headline */}
+          <h1
+            className="mb-6 md:text-[72px] text-[56px] tracking-tight"
             style={{
-              opacity: mounted ? 1 : 0,
-              transform: mounted ? "translateY(0)" : "translateY(24px)",
-              transition: "all 0.8s cubic-bezier(0.16,1,0.3,1) 0.25s",
+              fontFamily: "sans-serif",
+              lineHeight: 1.08,
+              color: "#0A0A0A",
             }}
           >
-            We Design
-          </span>{" "}
-          <span 
-            className="inline-block" 
+            We build websites Lagos businesses are proud to send clients to.
+          </h1>
+
+          {/* Subtext */}
+          <p
+            className="mb-8"
             style={{
-              opacity: mounted ? 1 : 0,
-              transform: mounted ? "translateY(0)" : "translateY(24px)",
-              transition: "all 0.8s cubic-bezier(0.16,1,0.3,1) 0.35s",
+              fontFamily: "Roboto, sans-serif",
+              fontSize: "18px",
+              fontWeight: 400,
+              color: "#4B5563",
             }}
           >
-            Websites
-          </span>{" "}
-          <br className="hidden sm:inline" />
-          <span 
-            className="relative inline-block" 
-            style={{
-              opacity: mounted ? 1 : 0,
-              transform: mounted ? "translateY(0)" : "translateY(24px)",
-              transition: "all 0.8s cubic-bezier(0.16,1,0.3,1) 0.45s",
-            }}
-          >
-            <span className="text-shimmer pr-2">That Sell</span>
-            {/* Elegant glowing accent stroke */}
-            <svg
-              className="absolute -bottom-3 left-0 w-full h-3"
-              viewBox="0 0 100 10"
-              preserveAspectRatio="none"
+            Custom-engineered. React + Django. Delivered in 2–8 weeks.
+          </p>
+
+          {/* CTAs */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
+            <button
+              onClick={() => handleCTAClick("#projects")}
+              className="transition-opacity hover:opacity-90 flex items-center justify-center"
+              style={{
+                background: "#1B4FD8",
+                color: "white",
+                fontFamily: "Roboto, sans-serif",
+                fontSize: "15px",
+                fontWeight: 500,
+                padding: "14px 28px",
+                borderRadius: "8px",
+                border: "none",
+                cursor: "pointer",
+              }}
             >
-              <path
-                d="M0,5 Q50,9 100,5"
-                stroke="url(#headline-underline)"
-                strokeWidth="3.5"
-                fill="transparent"
-                strokeLinecap="round"
-                style={{
-                  strokeDasharray: 100,
-                  strokeDashoffset: mounted ? 0 : 100,
-                  transition: "stroke-dashoffset 1.2s cubic-bezier(0.16,1,0.3,1) 0.8s",
-                }}
-              />
-              <defs>
-                <linearGradient id="headline-underline" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#FF6B35" />
-                  <stop offset="50%" stopColor="#D4AF37" />
-                  <stop offset="100%" stopColor="#FF6B35" />
-                </linearGradient>
-              </defs>
-            </svg>
-          </span>
-        </h1>
-
-        {/* Subheading */}
-        <p
-          style={{
-            fontFamily: "var(--font-body)",
-            fontSize: "clamp(16px, 2.5vw, 21px)",
-            lineHeight: 1.7,
-            color: "rgba(245,243,240,0.80)",
-            marginBottom: "28px",
-            maxWidth: "640px",
-            marginLeft: "auto",
-            marginRight: "auto",
-            opacity: mounted ? 1 : 0,
-            transform: mounted ? "translateY(0)" : "translateY(20px)",
-            transition: "all 0.8s cubic-bezier(0.16,1,0.3,1) 0.55s",
-          }}
-        >
-          High-performance, bespoke digital experiences tailored to scale your brand.
-          <br />
-          <span style={{ color: "rgba(245,243,240,0.55)", fontWeight: 500 }}>Engineered to perform. Built to convert.</span>
-        </p>
-
-        {/* Tech strip */}
-        <p
-          style={{
-            fontFamily: "var(--font-tech)",
-            fontSize: "13px",
-            color: "rgba(245,243,240,0.40)",
-            letterSpacing: "0.1em",
-            marginBottom: "48px",
-            opacity: mounted ? 1 : 0,
-            transition: "opacity 0.8s ease 0.7s",
-          }}
-        >
-          React · Django · TypeScript · PostgreSQL — not templates.
-        </p>
-
-        {/* CTAs */}
-        <div
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-          style={{
-            opacity: mounted ? 1 : 0,
-            transform: mounted ? "translateY(0)" : "translateY(16px)",
-            transition: "all 0.8s cubic-bezier(0.16,1,0.3,1) 0.8s",
-          }}
-        >
-          <button
-            className="btn-primary btn-sweep w-full sm:w-auto"
-            onClick={() => handleCTAClick("#projects")}
-            style={{ 
-              minWidth: "220px",
-              boxShadow: "0 0 30px rgba(255, 107, 53, 0.25)"
-            }}
-          >
-            See Our Work
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </button>
-          <button
-            className="btn-secondary w-full sm:w-auto"
-            onClick={() => handleCTAClick("#contact")}
-            style={{ 
-              minWidth: "220px",
-              borderColor: "rgba(255, 107, 53, 0.60)",
-              backdropFilter: "blur(4px)"
-            }}
-          >
-            Start Your Project
-          </button>
+              See Our Work →
+            </button>
+            <button
+              onClick={() => handleCTAClick("#contact")}
+              className="hover:underline transition-all"
+              style={{
+                fontFamily: "Roboto, sans-serif",
+                fontSize: "13px",
+                color: "#9CA3AF",
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                padding: "0",
+              }}
+            >
+              or start a project conversation
+            </button>
+          </div>
         </div>
 
-        {/* Stats Summary Panel */}
-        <div
-          className="w-full flex justify-center mt-12"
+        {/* Right Column (45%) */}
+        <div 
+          className="w-full lg:w-[45%] flex justify-center lg:justify-end mt-10 lg:mt-0"
           style={{
             opacity: mounted ? 1 : 0,
-            transform: mounted ? "translateY(0)" : "translateY(12px)",
-            transition: "all 0.9s cubic-bezier(0.16,1,0.3,1) 0.95s",
+            transform: mounted ? "translateX(0)" : "translateX(40px)",
+            transition: "all 1s cubic-bezier(0.16,1,0.3,1) 0.4s",
           }}
         >
-          <div className="w-full max-w-xl grid grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-1 sm:gap-2">
-            {[
-              { value: "3+", label: "Live Projects" },
-              { value: "2–8", label: "Week Delivery" },
-              { value: "₦", label: "Naira Pricing" },
-            ].map((stat, i) => (
-              <React.Fragment key={stat.label}>
-                {i > 0 && (
-                  <div 
-                    className="h-8 w-[1px]" 
-                    style={{ background: "linear-gradient(to bottom, transparent, rgba(255,255,255,0.15) 50%, transparent)" }}
-                  />
-                )}
-                <div className="flex flex-col items-center justify-center">
-                  <span
-                    style={{
-                      fontFamily: "var(--font-headline)",
-                      fontSize: "clamp(20px, 3.8vw, 28px)",
-                      fontWeight: 800,
-                      color: "var(--color-secondary)",
-                      lineHeight: 1.1,
-                      textShadow: "0 0 10px rgba(255,107,53,0.25)"
-                    }}
-                  >
-                    {stat.value}
-                  </span>
-                  <span
-                    style={{
-                      fontFamily: "var(--font-body)",
-                      fontSize: "clamp(9px, 1.7vw, 11px)",
-                      color: "rgba(245,243,240,0.60)",
-                      fontWeight: 600,
-                      marginTop: "2px",
-                      whiteSpace: "nowrap",
-                    }}
-                  >
-                    {stat.label}
-                  </span>
-                </div>
-              </React.Fragment>
-            ))}
+          {/* Inner wrapper to keep circle and frame aligned */}
+          <div className="relative w-full max-w-[540px]">
+            {/* Background Shape */}
+            <div
+              className="absolute rounded-full"
+              style={{
+                width: "110%",
+                aspectRatio: "1/1",
+                background: "#EEF2FF",
+                zIndex: -1,
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+              }}
+            />
+
+            {/* Browser Frame */}
+            <div
+              className="relative w-full bg-white rounded-xl overflow-hidden flex flex-col"
+              style={{
+                boxShadow: "0 20px 60px rgba(0,0,0,0.10)",
+                aspectRatio: "16/11",
+              }}
+            >
+            {/* Chrome Top Bar */}
+            <div className="h-10 bg-[#F9FAFB] border-b border-[#E5E9F0] flex items-center px-4 gap-4">
+              {/* 3 Dots */}
+              <div className="flex gap-1.5">
+                <div className="w-2.5 h-2.5 rounded-full bg-[#E5E9F0]" />
+                <div className="w-2.5 h-2.5 rounded-full bg-[#E5E9F0]" />
+                <div className="w-2.5 h-2.5 rounded-full bg-[#E5E9F0]" />
+              </div>
+              {/* URL Bar */}
+              <div className="flex-1 bg-white border border-[#E5E9F0] rounded-md h-6 mx-4" />
+            </div>
+
+            {/* Project Preview Content */}
+            <div className="relative flex-1 w-full h-full bg-[#0F172A]">
+              <Image 
+                src="/hero_image.png" 
+                alt="Project Preview" 
+                fill
+                className="object-cover"
+              />
+            </div>
+          </div>
           </div>
         </div>
       </div>
 
-      <ScrollChevron />
+      {/* Slim Trust Bar */}
+      <div 
+        className="w-full max-w-7xl mx-auto mt-20 pt-6"
+        style={{
+          borderTop: "1px solid #E5E9F0",
+          opacity: mounted ? 1 : 0,
+          transition: "opacity 1s ease 0.6s",
+        }}
+      >
+        <p
+          className="text-center"
+          style={{
+            fontFamily: "Roboto, sans-serif",
+            fontSize: "12px",
+            color: "#9CA3AF",
+          }}
+        >
+          Trusted by businesses in Lagos · Victoria Island · Lekki · Abuja
+        </p>
+      </div>
     </section>
   );
 }

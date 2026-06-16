@@ -1,12 +1,31 @@
 "use client";
 
-import { SITE, NAV_LINKS } from "@/lib/constants";
+import { SITE } from "@/lib/constants";
+
+const NAVIGATE_LINKS = [
+  { label: "Work", href: "#work" },
+  { label: "Services", href: "#services" },
+  { label: "About", href: "#about" },
+  { label: "Process", href: "#process" },
+  { label: "Pricing", href: "#pricing" },
+  { label: "Contact", href: "#contact" },
+];
+
+const SERVICES_LINKS = [
+  { label: "Custom Design", href: "#services" },
+  { label: "Full-Stack Dev", href: "#services" },
+  { label: "E-Commerce", href: "#services" },
+  { label: "SEO & Performance", href: "#services" },
+  { label: "API Systems", href: "#services" },
+  { label: "Post-Launch", href: "#services" },
+];
 
 export default function Footer() {
   const year = new Date().getFullYear();
 
-  const handleNavClick = (href: string) => {
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (href.startsWith("#")) {
+      e.preventDefault();
       const el = document.querySelector(href);
       el?.scrollIntoView({ behavior: "smooth" });
     }
@@ -15,147 +34,192 @@ export default function Footer() {
   return (
     <footer
       style={{
-        background: "#080E1C",
-        borderTop: "1px solid rgba(255,255,255,0.06)",
-        padding: "64px 20px 32px",
+        backgroundColor: "#0A0A0A",
+        padding: "80px 20px 40px",
       }}
     >
-      <div className="max-w-6xl mx-auto">
-        {/* Top row */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr",
-            gap: "40px",
-            marginBottom: "48px",
-          }}
-          className="md:grid-cols-3"
+      <div className="max-w-6xl mx-auto flex flex-col">
+        
+        {/* TOP SECTION */}
+        <div className="flex flex-col items-center text-center" style={{ marginBottom: "60px" }}>
+          <h2
+            style={{
+              fontFamily: "sans-serif",
+              fontSize: "40px",
+              color: "#FFFFFF",
+              marginBottom: "24px",
+              lineHeight: 1.1,
+            }}
+          >
+            Ready to build something Lagos will remember?
+          </h2>
+          <a
+            href="#contact"
+            onClick={(e) => handleNavClick(e, "#contact")}
+            className="flex items-center justify-center transition-all duration-200 hover:bg-white hover:text-[#0A0A0A]"
+            style={{
+              fontFamily: "Roboto, sans-serif",
+              fontSize: "15px",
+              fontWeight: 500,
+              color: "#FFFFFF",
+              border: "1px solid #FFFFFF",
+              borderRadius: "8px",
+              padding: "12px 28px",
+            }}
+          >
+            Start a Project →
+          </a>
+        </div>
+
+        {/* 4-COLUMN GRID */}
+        <div 
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12"
+          style={{ marginBottom: "60px" }}
         >
-          {/* Brand */}
-          <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div
-                style={{
-                  width: "36px",
-                  height: "36px",
-                  borderRadius: "10px",
-                  background: "linear-gradient(135deg, #FF6B35 0%, #ff8c5a 100%)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontFamily: "var(--font-headline)",
-                  fontWeight: 800,
-                  fontSize: "16px",
-                  color: "#fff",
-                }}
-              >
-                V
-              </div>
-              <span
-                style={{
-                  fontFamily: "var(--font-headline)",
-                  fontWeight: 700,
-                  fontSize: "18px",
-                  color: "#ffffff",
-                }}
-              >
-                Vellum<span style={{ color: "var(--color-secondary)" }}>&</span>Vector
-              </span>
-            </div>
-
-            <p
+          {/* Column 1: Brand */}
+          <div className="flex flex-col">
+            <span 
               style={{
-                fontFamily: "var(--font-body)",
-                fontSize: "14px",
-                color: "rgba(245,243,240,0.45)",
-                lineHeight: 1.7,
-                maxWidth: "260px",
-                marginBottom: "20px",
-              }}
-            >
-              Premium web design & development. Based in Lagos GRA.
-              Built with React, TypeScript, Django, and PostgreSQL.
-            </p>
-
-            <p
-              style={{
-                fontFamily: "var(--font-tech)",
-                fontSize: "11px",
-                color: "rgba(245,243,240,0.25)",
-                letterSpacing: "0.08em",
-              }}
-            >
-              React · Django · TypeScript · PostgreSQL
-            </p>
-          </div>
-
-          {/* Nav links */}
-          <div>
-            <p
-              style={{
-                fontFamily: "var(--font-tech)",
-                fontSize: "11px",
-                color: "rgba(245,243,240,0.40)",
-                letterSpacing: "0.08em",
-                textTransform: "uppercase",
+                fontFamily: "Roboto, sans-serif",
+                fontSize: "18px",
+                fontWeight: 600,
+                color: "#FFFFFF",
                 marginBottom: "16px",
               }}
             >
-              Navigate
+              Vellum&Vector
+            </span>
+            <p
+              style={{
+                fontFamily: "Roboto, sans-serif",
+                fontSize: "13px",
+                color: "#6B7280",
+                lineHeight: 1.7,
+                marginBottom: "24px",
+                maxWidth: "240px",
+              }}
+            >
+              Premium web design & engineering studio. Based in Lagos GRA.
             </p>
-            <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "10px" }}>
-              {NAV_LINKS.map((link) => (
+            <div className="flex gap-4">
+              {/* Twitter/X */}
+              <a href="#" className="text-[#6B7280] hover:text-[#FFFFFF] transition-colors duration-200">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M4 4l11.733 16h4.267l-11.733 -16z"></path>
+                  <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"></path>
+                </svg>
+              </a>
+              {/* LinkedIn */}
+              <a href="#" className="text-[#6B7280] hover:text-[#FFFFFF] transition-colors duration-200">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                  <rect x="2" y="9" width="4" height="12"></rect>
+                  <circle cx="4" cy="4" r="2"></circle>
+                </svg>
+              </a>
+              {/* Behance */}
+              <a href="#" className="text-[#6B7280] hover:text-[#FFFFFF] transition-colors duration-200">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M6.5 7h4c1.93 0 3.5 1.57 3.5 3.5S12.43 14 10.5 14h-4V7z"></path>
+                  <path d="M6.5 14h4.5c1.93 0 3.5 1.57 3.5 3.5S12.93 21 11 21h-4.5v-7z"></path>
+                  <path d="M15 10h4"></path>
+                  <path d="M15.5 14h5a3.5 3.5 0 0 0-7 0v1a3.5 3.5 0 0 0 7 0"></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          {/* Column 2: Navigate */}
+          <div className="flex flex-col">
+            <span
+              style={{
+                fontFamily: "Roboto, sans-serif",
+                fontSize: "11px",
+                fontWeight: 500,
+                color: "#6B7280",
+                textTransform: "uppercase",
+                letterSpacing: "0.1em",
+                marginBottom: "20px",
+              }}
+            >
+              Navigate
+            </span>
+            <ul className="flex flex-col gap-[8px]">
+              {NAVIGATE_LINKS.map((link) => (
                 <li key={link.href}>
-                  <button
-                    onClick={() => handleNavClick(link.href)}
+                  <a
+                    href={link.href}
+                    onClick={(e) => handleNavClick(e, link.href)}
+                    className="text-[#9CA3AF] hover:text-[#FFFFFF] transition-colors duration-150"
                     style={{
-                      background: "none",
-                      border: "none",
-                      cursor: "pointer",
-                      fontFamily: "var(--font-body)",
+                      fontFamily: "Roboto, sans-serif",
                       fontSize: "14px",
-                      color: "rgba(245,243,240,0.55)",
-                      padding: 0,
-                      transition: "color 200ms ease",
-                      textAlign: "left",
                     }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = "var(--color-secondary)")}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(245,243,240,0.55)")}
                   >
                     {link.label}
-                  </button>
+                  </a>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Contact + CTA */}
-          <div>
-            <p
+          {/* Column 3: Services */}
+          <div className="flex flex-col">
+            <span
               style={{
-                fontFamily: "var(--font-tech)",
+                fontFamily: "Roboto, sans-serif",
                 fontSize: "11px",
-                color: "rgba(245,243,240,0.40)",
-                letterSpacing: "0.08em",
+                fontWeight: 500,
+                color: "#6B7280",
                 textTransform: "uppercase",
-                marginBottom: "16px",
+                letterSpacing: "0.1em",
+                marginBottom: "20px",
+              }}
+            >
+              Services
+            </span>
+            <ul className="flex flex-col gap-[8px]">
+              {SERVICES_LINKS.map((link) => (
+                <li key={link.label}>
+                  <a
+                    href={link.href}
+                    onClick={(e) => handleNavClick(e, link.href)}
+                    className="text-[#9CA3AF] hover:text-[#FFFFFF] transition-colors duration-150"
+                    style={{
+                      fontFamily: "Roboto, sans-serif",
+                      fontSize: "14px",
+                    }}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 4: Contact */}
+          <div className="flex flex-col">
+            <span
+              style={{
+                fontFamily: "Roboto, sans-serif",
+                fontSize: "11px",
+                fontWeight: 500,
+                color: "#6B7280",
+                textTransform: "uppercase",
+                letterSpacing: "0.1em",
+                marginBottom: "20px",
               }}
             >
               Get In Touch
-            </p>
-
-            <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "24px" }}>
+            </span>
+            <div className="flex flex-col gap-[8px]">
               <a
                 href={`mailto:${SITE.email}`}
+                className="text-[#9CA3AF] hover:text-[#FFFFFF] transition-colors duration-150"
                 style={{
-                  fontFamily: "var(--font-body)",
+                  fontFamily: "Roboto, sans-serif",
                   fontSize: "14px",
-                  color: "rgba(245,243,240,0.55)",
-                  textDecoration: "none",
-                  transition: "color 200ms ease",
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#ffffff")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(245,243,240,0.55)")}
               >
                 {SITE.email}
               </a>
@@ -163,71 +227,53 @@ export default function Footer() {
                 href={SITE.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
+                className="text-[#9CA3AF] hover:text-[#FFFFFF] transition-colors duration-150"
                 style={{
-                  fontFamily: "var(--font-body)",
+                  fontFamily: "Roboto, sans-serif",
                   fontSize: "14px",
-                  color: "rgba(245,243,240,0.55)",
-                  textDecoration: "none",
-                  transition: "color 200ms ease",
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#25d366")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(245,243,240,0.55)")}
               >
-                💬 WhatsApp
+                WhatsApp
               </a>
               <p
                 style={{
-                  fontFamily: "var(--font-body)",
+                  fontFamily: "Roboto, sans-serif",
                   fontSize: "13px",
-                  color: "rgba(245,243,240,0.35)",
+                  color: "#6B7280",
+                  marginTop: "8px"
                 }}
               >
-                📍 {SITE.location}
+                Lagos GRA, Lagos, Nigeria
               </p>
             </div>
-
-            <button
-              onClick={() => handleNavClick("#contact")}
-              className="btn-primary"
-              style={{ height: "44px", padding: "0 20px", fontSize: "14px" }}
-            >
-              Start Your Project
-            </button>
           </div>
         </div>
 
-        {/* Bottom bar */}
-        <div
-          style={{
-            paddingTop: "24px",
-            borderTop: "1px solid rgba(255,255,255,0.06)",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexWrap: "wrap",
-            gap: "12px",
-          }}
+        {/* BOTTOM BAR */}
+        <div 
+          className="flex flex-col md:flex-row justify-between items-center gap-4 pt-6"
+          style={{ borderTop: "1px solid #1F1F1F" }}
         >
-          <p
+          <span
             style={{
-              fontFamily: "var(--font-body)",
-              fontSize: "13px",
-              color: "rgba(245,243,240,0.30)",
+              fontFamily: "Roboto, sans-serif",
+              fontSize: "12px",
+              color: "#6B7280",
             }}
           >
             © {year} Vellum & Vector. All rights reserved.
-          </p>
-          <p
+          </span>
+          <span
             style={{
-              fontFamily: "var(--font-tech)",
-              fontSize: "11px",
-              color: "rgba(245,243,240,0.20)",
-              letterSpacing: "0.06em",
+              fontFamily: "Roboto, sans-serif",
+              fontSize: "12px",
+              color: "#6B7280",
             }}
           >
-            Made in Lagos 🇳🇬
-          </p>
+            Made in Lagos, Nigeria 🇳🇬
+          </span>
         </div>
+
       </div>
     </footer>
   );

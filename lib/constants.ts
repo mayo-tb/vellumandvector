@@ -179,7 +179,7 @@ export const PROJECTS: Project[] = [
     hook: "Where luxury meets engineering.",
     techStack: ["Next.js 14", "TypeScript", "Tailwind CSS", "Django REST Framework", "PostgreSQL", "Cloudinary", "Framer Motion"],
     liveUrl: "https://adunsville-residence.vercel.app",
-    imageUrl: "/images/adunsville.jpg",
+    imageUrl: "/images/adunsville.png",
     isFeatured: true,
   },
   {
@@ -193,7 +193,7 @@ export const PROJECTS: Project[] = [
     hook: "Complex data. Clean experience.",
     techStack: ["React", "TypeScript", "Django REST Framework", "PostgreSQL", "JWT Auth", "Render"],
     liveUrl: "https://ancestryvault-2.onrender.com",
-    imageUrl: "/images/ancestryvault.jpg",
+    imageUrl: "/images/ancestryvault.png",
     isFeatured: true,
   },
   {
@@ -207,7 +207,7 @@ export const PROJECTS: Project[] = [
     hook: "Where algorithms solve real problems.",
     techStack: ["Python", "Django REST Framework", "Genetic Algorithms", "PostgreSQL", "Next.js", "TypeScript"],
     liveUrl: "https://thenexus87.vercel.app",
-    imageUrl: "/images/nexus.jpg",
+    imageUrl: "/images/nexus.png",
     isFeatured: true,
   },
 ];

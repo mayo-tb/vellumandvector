@@ -1,7 +1,50 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { PRICING_TIERS } from "@/lib/constants";
+
+const NEW_PRICING_TIERS = [
+  {
+    id: "essentials",
+    name: "ESSENTIALS",
+    price: "Starting at ₦150k",
+    features: [
+      "Custom UI/UX Design",
+      "Responsive Frontend (Next.js)",
+      "Basic SEO Setup",
+      "Contact Form Integration",
+    ],
+    cta: "Start Project",
+    highlighted: false,
+  },
+  {
+    id: "professional",
+    name: "PROFESSIONAL",
+    price: "Starting at ₦400k",
+    features: [
+      "Everything in Essentials",
+      "Custom Backend (Django)",
+      "Database & Authentication",
+      "CMS Integration",
+      "Payment Gateway Setup",
+    ],
+    cta: "Start Project",
+    highlighted: true,
+  },
+  {
+    id: "enterprise",
+    name: "ENTERPRISE",
+    price: "Custom Scope",
+    features: [
+      "Everything in Professional",
+      "Scalable Cloud Architecture",
+      "Complex 3rd-Party APIs",
+      "SLA & Priority Support",
+      "Post-launch Retainer",
+    ],
+    cta: "Let's Talk →",
+    highlighted: false,
+  }
+];
 
 export default function Pricing() {
   const [visible, setVisible] = useState(false);
@@ -20,96 +63,82 @@ export default function Pricing() {
     <section
       id="pricing"
       ref={ref}
-      className="section-padding"
-      style={{
-        background:
-          "linear-gradient(180deg, #0F172A 0%, #111827 100%)",
-      }}
+      className="bg-white"
+      style={{ padding: "120px clamp(24px, 8vw, 80px)" }}
     >
-      <div className="max-w-6xl mx-auto">
+      <div 
+        className="max-w-6xl mx-auto w-full"
+        style={{
+          opacity: visible ? 1 : 0,
+          transform: visible ? "translateY(0)" : "translateY(24px)",
+          transition: "all 0.8s cubic-bezier(0.16,1,0.3,1)",
+        }}
+      >
         {/* Header */}
-        <div
-          className="text-center mb-12"
-          style={{
-            opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(24px)",
-            transition: "all 0.7s cubic-bezier(0.16,1,0.3,1)",
-          }}
-        >
-          <h2 className="section-heading" style={{ color: "#ffffff" }}>
-            Transparent{" "}
-            <span style={{ color: "var(--color-secondary)" }}>Pricing</span>
+        <div className="text-center mb-16">
+          <h2 
+            style={{ 
+              fontFamily: "sans-serif",
+              fontSize: "48px",
+              color: "#0A0A0A",
+              lineHeight: 1.1,
+              marginBottom: "16px"
+            }}
+          >
+            Transparent Pricing
           </h2>
-          <p className="section-subheading">
-            No retainer surprises. No hidden fees. You pay in milestones — not upfront.
+          <p 
+            style={{ 
+              fontFamily: "Roboto, sans-serif",
+              fontSize: "16px",
+              color: "#6B7280",
+            }}
+          >
+            No retainer surprises. No hidden fees. You pay in milestones.
           </p>
         </div>
 
         {/* Pricing Cards */}
         <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-            gap: "20px",
-            alignItems: "start",
-          }}
+          className="grid gap-6 grid-cols-1 md:grid-cols-3 items-start"
         >
-          {PRICING_TIERS.map((tier, i) => (
+          {NEW_PRICING_TIERS.map((tier) => (
             <div
               key={tier.id}
+              className="relative flex flex-col transition-all duration-300 hover:-translate-y-1"
               style={{
-                borderRadius: "24px",
-                padding: "32px",
-                background: tier.highlighted
-                  ? "linear-gradient(135deg, rgba(255,107,53,0.15) 0%, rgba(255,107,53,0.05) 100%)"
-                  : "rgba(255,255,255,0.05)",
-                border: tier.highlighted
-                  ? "1px solid rgba(255,107,53,0.40)"
-                  : "1px solid rgba(255,255,255,0.08)",
-                boxShadow: tier.highlighted
-                  ? "0 0 40px rgba(255,107,53,0.15)"
-                  : "none",
-                opacity: visible ? 1 : 0,
-                transform: visible
-                  ? tier.highlighted ? "translateY(-8px)" : "translateY(0)"
-                  : "translateY(24px)",
-                transition: `all 0.7s cubic-bezier(0.16,1,0.3,1) ${0.1 + i * 0.1}s`,
-                backdropFilter: "blur(12px)",
-                WebkitBackdropFilter: "blur(12px)",
-                position: "relative",
+                backgroundColor: "#FFFFFF",
+                borderRadius: "16px",
+                border: tier.highlighted ? "2px solid #1B4FD8" : "1px solid #E5E9F0",
+                padding: tier.highlighted ? "56px 32px 36px 32px" : "36px 32px",
                 overflow: "hidden",
+                boxShadow: tier.highlighted ? "0 20px 40px rgba(27, 79, 216, 0.08)" : "0 4px 20px rgba(0, 0, 0, 0.03)",
               }}
             >
-              {/* Popular badge */}
               {tier.highlighted && (
-                <div
+                <div 
+                  className="absolute top-0 left-0 w-full text-center"
                   style={{
-                    position: "absolute",
-                    top: "20px",
-                    right: "20px",
-                    padding: "4px 12px",
-                    borderRadius: "100px",
-                    background: "var(--color-secondary)",
-                    fontFamily: "var(--font-tech)",
-                    fontSize: "10px",
-                    fontWeight: 700,
-                    color: "#fff",
-                    letterSpacing: "0.06em",
-                    textTransform: "uppercase",
+                    backgroundColor: "#EEF2FF",
+                    padding: "6px 0",
+                    fontFamily: "Roboto, sans-serif",
+                    fontSize: "11px",
+                    fontWeight: 500,
+                    color: "#1B4FD8",
                   }}
                 >
-                  Popular
+                  Most Chosen
                 </div>
               )}
 
               <p
                 style={{
-                  fontFamily: "var(--font-tech)",
+                  fontFamily: "Roboto, sans-serif",
                   fontSize: "12px",
-                  color: "rgba(245,243,240,0.50)",
-                  letterSpacing: "0.08em",
+                  fontWeight: 500,
+                  color: "#6B7280",
                   textTransform: "uppercase",
-                  marginBottom: "8px",
+                  marginBottom: "12px",
                 }}
               >
                 {tier.name}
@@ -117,44 +146,29 @@ export default function Pricing() {
 
               <p
                 style={{
-                  fontFamily: "var(--font-headline)",
-                  fontSize: "28px",
-                  fontWeight: 800,
-                  color: tier.highlighted ? "var(--color-secondary)" : "#ffffff",
-                  marginBottom: "8px",
+                  fontFamily: "sans-serif",
+                  fontSize: "40px",
+                  color: "#0A0A0A",
+                  marginBottom: "32px",
                   lineHeight: 1.1,
                 }}
               >
-                {tier.range}
+                {tier.price}
               </p>
 
-              <p
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: "13px",
-                  color: "rgba(245,243,240,0.50)",
-                  marginBottom: "24px",
-                  lineHeight: 1.5,
-                }}
-              >
-                {tier.bestFor}
-              </p>
-
-              <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "10px", marginBottom: "28px" }}>
-                {tier.features.map((feature) => (
+              <ul className="flex flex-col gap-4 mb-8 flex-1">
+                {tier.features.map((feature, idx) => (
                   <li
-                    key={feature}
+                    key={idx}
+                    className="flex items-start gap-3"
                     style={{
-                      display: "flex",
-                      gap: "10px",
-                      alignItems: "flex-start",
-                      fontFamily: "var(--font-body)",
+                      fontFamily: "Roboto, sans-serif",
                       fontSize: "14px",
-                      color: "rgba(245,243,240,0.75)",
+                      color: "#374151",
                       lineHeight: 1.5,
                     }}
                   >
-                    <span style={{ color: "var(--color-secondary)", flexShrink: 0, marginTop: "2px" }}>✓</span>
+                    <span style={{ color: "#1B4FD8", fontWeight: "bold" }}>✓</span>
                     {feature}
                   </li>
                 ))}
@@ -162,22 +176,30 @@ export default function Pricing() {
 
               <a
                 href="#contact"
-                className={tier.highlighted ? "btn-primary" : "btn-secondary"}
-                style={{ display: "flex", width: "100%", justifyContent: "center" }}
+                className="flex items-center justify-center transition-all duration-200 hover:opacity-90"
+                style={{
+                  fontFamily: "Roboto, sans-serif",
+                  fontSize: "14px",
+                  fontWeight: 500,
+                  padding: "12px 24px",
+                  borderRadius: "8px",
+                  border: "1px solid #1B4FD8",
+                  backgroundColor: tier.highlighted ? "#1B4FD8" : "transparent",
+                  color: tier.highlighted ? "#FFFFFF" : "#1B4FD8",
+                }}
               >
-                {tier.cta === "Most Popular" ? "Get Started" : tier.cta}
+                {tier.cta}
               </a>
             </div>
           ))}
         </div>
 
         <p
-          className="text-center mt-8 text-sm"
+          className="text-center mt-12"
           style={{
-            fontFamily: "var(--font-body)",
-            color: "rgba(245,243,240,0.35)",
-            opacity: visible ? 1 : 0,
-            transition: "opacity 0.7s ease 0.5s",
+            fontFamily: "Roboto, sans-serif",
+            fontSize: "13px",
+            color: "#9CA3AF",
           }}
         >
           All projects include mobile-first design, SEO setup, performance optimisation, and 30 days post-launch support.

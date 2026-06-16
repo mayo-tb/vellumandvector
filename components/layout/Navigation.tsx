@@ -30,67 +30,74 @@ export default function Navigation() {
 
   return (
     <>
-      <header
-        className="fixed top-0 left-0 right-0 z-50 transition-all duration-400"
+      {/* Announcement Bar */}
+      <div 
         style={{
-          background: isScrolled
-            ? "rgba(15, 23, 42, 0.88)"
-            : "transparent",
-          backdropFilter: isScrolled ? "blur(16px)" : "none",
-          WebkitBackdropFilter: isScrolled ? "blur(16px)" : "none",
-          borderBottom: isScrolled
-            ? "1px solid rgba(255,255,255,0.08)"
-            : "none",
+          background: "#F0F4FF",
+          height: "36px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "100%",
+          position: "relative",
+          zIndex: 51,
         }}
       >
-        <nav className="flex items-center justify-between px-5 py-4 max-w-7xl mx-auto">
+        <span style={{ fontFamily: "Roboto, sans-serif", fontSize: "12px", color: "#1B4FD8", fontWeight: 500 }}>
+          Lagos GRA · Premium Web Studio · Currently accepting projects
+        </span>
+      </div>
+
+      <header
+        className="sticky top-0 left-0 right-0 z-50 transition-all duration-300"
+        style={{
+          background: isScrolled ? "rgba(255, 255, 255, 0.90)" : "#ffffff",
+          backdropFilter: isScrolled ? "blur(12px)" : "none",
+          WebkitBackdropFilter: isScrolled ? "blur(12px)" : "none",
+          boxShadow: isScrolled ? "0 1px 0 #E5E9F0" : "none",
+        }}
+      >
+        <nav className="flex items-center justify-between py-4 max-w-7xl mx-auto" style={{ paddingLeft: "clamp(24px, 8vw, 80px)", paddingRight: "clamp(24px, 8vw, 80px)" }}>
           {/* Logo */}
           <Link
             href="/"
             className="flex items-center gap-2 group"
             aria-label={SITE.name}
+            style={{ textDecoration: "none" }}
           >
-            <div
-              className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm transition-transform duration-200 group-hover:scale-105"
-              style={{
-                background: "linear-gradient(135deg, #FF6B35 0%, #ff8c5a 100%)",
-                fontFamily: "var(--font-headline)",
-                color: "#fff",
-              }}
-            >
-              V
-            </div>
             <span
-              className="text-white font-semibold text-lg hidden sm:block"
-              style={{ fontFamily: "var(--font-headline)" }}
+              className="text-[#0A0A0A]"
+              style={{ fontFamily: "Roboto, sans-serif", fontWeight: 600, fontSize: "18px" }}
             >
-              Vellum<span style={{ color: "var(--color-secondary)" }}>&</span>Vector
+              Vellum&Vector
             </span>
           </Link>
 
           {/* Desktop Nav Links */}
-          <ul className="hidden md:flex items-center gap-8 list-none">
+          <ul className="hidden md:flex items-center gap-8 list-none m-0 p-0">
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
                 <button
                   onClick={() => handleNavClick(link.href)}
-                  className="relative text-sm font-medium transition-colors duration-200 group"
+                  className="relative group flex flex-col items-center justify-center"
                   style={{
-                    color: "rgba(245,243,240,0.75)",
-                    fontFamily: "var(--font-body)",
+                    color: "#0A0A0A",
+                    fontFamily: "Roboto, sans-serif",
+                    fontWeight: 450,
+                    fontSize: "14px",
                     background: "none",
                     border: "none",
                     cursor: "pointer",
                     padding: "4px 0",
                   }}
                 >
-                  <span className="group-hover:text-white transition-colors duration-200">
+                  <span className="transition-colors duration-150">
                     {link.label}
                   </span>
                   {/* Animated underline */}
                   <span
-                    className="absolute bottom-0 left-0 h-px transition-all duration-250 origin-left scale-x-0 group-hover:scale-x-100"
-                    style={{ background: "var(--color-secondary)", width: "100%" }}
+                    className="absolute -bottom-1 h-[2px] transition-transform duration-150 origin-center scale-x-0 group-hover:scale-x-100"
+                    style={{ background: "#1B4FD8", width: "100%" }}
                   />
                 </button>
               </li>
@@ -101,10 +108,19 @@ export default function Navigation() {
           <a
             href="#contact"
             onClick={(e) => { e.preventDefault(); handleNavClick("#contact"); }}
-            className="btn-primary hidden md:inline-flex"
-            style={{ height: "40px", padding: "0 20px", fontSize: "14px" }}
+            className="hidden md:inline-flex items-center justify-center transition-opacity hover:opacity-90"
+            style={{ 
+              background: "#1B4FD8", 
+              color: "white", 
+              padding: "10px 22px", 
+              borderRadius: "6px", 
+              fontFamily: "Roboto, sans-serif", 
+              fontWeight: 500, 
+              fontSize: "14px",
+              textDecoration: "none"
+            }}
           >
-            Start Your Project
+            Start a Project
           </a>
 
           {/* Mobile Hamburger */}
@@ -113,19 +129,19 @@ export default function Navigation() {
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={isMenuOpen}
-            style={{ minWidth: "44px", minHeight: "44px", justifyContent: "center", alignItems: "center" }}
+            style={{ minWidth: "44px", minHeight: "44px", justifyContent: "center", alignItems: "center", background: "none", border: "none" }}
           >
             <span
               className="block w-5 h-0.5 rounded-full transition-all duration-300"
               style={{
-                background: "var(--color-tertiary)",
+                background: "#0A0A0A",
                 transform: isMenuOpen ? "rotate(45deg) translate(3px, 3px)" : "none",
               }}
             />
             <span
               className="block w-5 h-0.5 rounded-full transition-all duration-300"
               style={{
-                background: "var(--color-tertiary)",
+                background: "#0A0A0A",
                 opacity: isMenuOpen ? 0 : 1,
                 transform: isMenuOpen ? "scaleX(0)" : "none",
               }}
@@ -133,7 +149,7 @@ export default function Navigation() {
             <span
               className="block w-5 h-0.5 rounded-full transition-all duration-300"
               style={{
-                background: "var(--color-tertiary)",
+                background: "#0A0A0A",
                 transform: isMenuOpen ? "rotate(-45deg) translate(3px, -3px)" : "none",
               }}
             />
@@ -153,7 +169,7 @@ export default function Navigation() {
         {/* Backdrop */}
         <div
           className="absolute inset-0"
-          style={{ background: "rgba(15,23,42,0.60)", backdropFilter: "blur(4px)" }}
+          style={{ background: "rgba(10,10,10,0.60)", backdropFilter: "blur(4px)" }}
           onClick={() => setIsMenuOpen(false)}
         />
 
@@ -161,21 +177,21 @@ export default function Navigation() {
         <div
           className="absolute top-0 right-0 h-full w-80 max-w-full flex flex-col"
           style={{
-            background: "var(--color-primary)",
-            borderLeft: "1px solid rgba(255,255,255,0.08)",
+            background: "white",
+            borderLeft: "1px solid #E5E9F0",
             transform: isMenuOpen ? "translateX(0)" : "translateX(100%)",
             transition: "transform 350ms cubic-bezier(0.16, 1, 0.3, 1)",
           }}
         >
           {/* Drawer Header */}
-          <div className="flex items-center justify-between px-6 py-5" style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
-            <span style={{ fontFamily: "var(--font-headline)", color: "white", fontWeight: 700 }}>
+          <div className="flex items-center justify-between px-6 py-5" style={{ borderBottom: "1px solid #E5E9F0" }}>
+            <span style={{ fontFamily: "Roboto, sans-serif", color: "#0A0A0A", fontWeight: 600 }}>
               Menu
             </span>
             <button
               onClick={() => setIsMenuOpen(false)}
               className="rounded-lg flex items-center justify-center"
-              style={{ width: "44px", height: "44px", color: "rgba(245,243,240,0.6)", background: "rgba(255,255,255,0.05)", border: "none", cursor: "pointer", fontSize: "20px" }}
+              style={{ width: "44px", height: "44px", color: "#0A0A0A", background: "#F0F4FF", border: "none", cursor: "pointer", fontSize: "20px" }}
               aria-label="Close menu"
             >
               ✕
@@ -188,19 +204,19 @@ export default function Navigation() {
               <button
                 key={link.href}
                 onClick={() => handleNavClick(link.href)}
-                className="text-left py-4 text-2xl font-bold border-b transition-colors duration-200"
+                className="text-left py-4 text-2xl border-b transition-colors duration-200"
                 style={{
-                  fontFamily: "var(--font-headline)",
-                  color: "rgba(245,243,240,0.80)",
-                  borderColor: "rgba(255,255,255,0.06)",
+                  fontFamily: "Roboto, sans-serif",
+                  fontWeight: 500,
+                  color: "#0A0A0A",
                   background: "none",
                   border: "none",
-                  borderBottom: "1px solid rgba(255,255,255,0.06)",
+                  borderBottom: "1px solid #E5E9F0",
                   cursor: "pointer",
                   animationDelay: `${i * 60}ms`,
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "var(--color-secondary)")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(245,243,240,0.80)")}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "#1B4FD8")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "#0A0A0A")}
               >
                 {link.label}
               </button>
@@ -212,15 +228,25 @@ export default function Navigation() {
             <a
               href="#contact"
               onClick={(e) => { e.preventDefault(); handleNavClick("#contact"); }}
-              className="btn-primary w-full text-center"
+              className="flex items-center justify-center transition-opacity hover:opacity-90 w-full"
+              style={{ 
+                background: "#1B4FD8", 
+                color: "white", 
+                padding: "14px 22px", 
+                borderRadius: "6px", 
+                fontFamily: "Roboto, sans-serif", 
+                fontWeight: 500, 
+                fontSize: "15px",
+                textDecoration: "none"
+              }}
             >
-              Start Your Project
+              Start a Project
             </a>
             <p
-              className="text-center text-xs"
-              style={{ fontFamily: "var(--font-tech)", color: "rgba(245,243,240,0.30)" }}
+              className="text-center text-xs mt-2"
+              style={{ fontFamily: "Roboto, sans-serif", color: "rgba(10,10,10,0.50)" }}
             >
-              React · Django · TypeScript · PostgreSQL
+              Lagos GRA · Premium Web Studio
             </p>
           </div>
         </div>

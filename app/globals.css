@@ -6,25 +6,25 @@
 
 :root {
   /* Brand Colors */
-  --color-primary:      #0F172A;
-  --color-secondary:    #FF6B35;
-  --color-tertiary:     #F5F3F0;
+  --color-primary:      #FFFFFF;
+  --color-secondary:    #0033ff;
+  --color-tertiary:     #00033D;
   --color-accent:       #E8F4F8;
   --color-supporting:   #2D3E50;
   --color-gold:         #D4AF37;
 
   /* Glassmorphism */
-  --glass-bg:           rgba(255, 255, 255, 0.08);
-  --glass-bg-mid:       rgba(255, 255, 255, 0.12);
-  --glass-bg-light:     rgba(15, 23, 42, 0.06);
-  --glass-border:       rgba(255, 255, 255, 0.18);
-  --glass-border-dark:  rgba(15, 23, 42, 0.10);
-  --glass-blur:         blur(12px);
-  --glass-shadow:       0 8px 32px rgba(0, 0, 0, 0.10);
+  --glass-bg:           rgba(255, 255, 255, 0.7);
+  --glass-bg-mid:       rgba(255, 255, 255, 0.5);
+  --glass-bg-light:     rgba(255, 255, 255, 0.8);
+  --glass-border:       rgba(0, 0, 0, 0.05);
+  --glass-border-dark:  rgba(0, 0, 0, 0.10);
+  --glass-blur:         blur(16px);
+  --glass-shadow:       0 8px 32px rgba(0, 0, 0, 0.05);
 
   /* Typography — font families loaded via Google Fonts link tag in layout.tsx */
-  --font-headline:  'Poppins', system-ui, sans-serif;
-  --font-body:      'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-headline:  sans-serif;
+  --font-body:      'Roboto', sans-serif;
   --font-tech:      'Space Mono', 'Courier New', monospace;
 
   /* Spacing */
@@ -49,9 +49,9 @@
    ============================================ */
 
 @theme inline {
-  --color-vv-primary:    #0F172A;
-  --color-vv-secondary:  #FF6B35;
-  --color-vv-tertiary:   #F5F3F0;
+  --color-vv-primary:    #FFFFFF;
+  --color-vv-secondary:  #0033ff;
+  --color-vv-tertiary:   #00033D;
   --color-vv-accent:     #E8F4F8;
   --color-vv-supporting: #2D3E50;
   --color-vv-gold:       #D4AF37;
@@ -114,7 +114,7 @@ body {
 /* Fallback for browsers without backdrop-filter */
 @supports not (backdrop-filter: blur(1px)) {
   .glass, .glass-mid {
-    background: rgba(15, 23, 42, 0.92);
+    background: rgba(255, 255, 255, 0.95);
   }
   .glass-light {
     background: rgba(245, 243, 240, 0.92);

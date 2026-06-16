@@ -4,336 +4,155 @@ import { useEffect, useRef, useState } from "react";
 import { PROJECTS, type Project } from "@/lib/constants";
 import { type ApiProject } from "@/lib/api";
 
-const PILL_COLORS: Record<string, string> = {
-  "Next.js 14": "#ffffff",
-  "Next.js": "#ffffff",
-  "TypeScript": "#3178C6",
-  "React": "#61DAFB",
-  "Tailwind CSS": "#06B6D4",
-  "Django REST Framework": "#44B78B",
-  "PostgreSQL": "#336791",
-  "Cloudinary": "#3448C5",
-  "Framer Motion": "#BB4FFF",
-  "JWT Auth": "#f59e0b",
-  "Render": "#46E3B7",
-  "Python": "#FFD43B",
-  "Genetic Algorithms": "#FF6B35",
-  "default": "#64748b",
-};
-
-function TechPill({ name }: { name: string }) {
-  const color = PILL_COLORS[name] ?? PILL_COLORS.default;
+function BrowserFrame({ project, height, isHovered }: { project: Project, height: string, isHovered: boolean }) {
   return (
-    <span
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        gap: "6px",
-        padding: "4px 10px",
-        borderRadius: "100px",
-        background: "rgba(255,255,255,0.06)",
-        border: "1px solid rgba(255,255,255,0.12)",
-        fontFamily: "var(--font-tech)",
-        fontSize: "10px",
-        color: "rgba(245,243,240,0.85)",
-        whiteSpace: "nowrap",
-        transition: "all 200ms ease",
-        cursor: "default",
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.transform = "scale(1.05)";
-        e.currentTarget.style.background = "rgba(255,255,255,0.12)";
-        e.currentTarget.style.borderColor = color;
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.transform = "scale(1)";
-        e.currentTarget.style.background = "rgba(255,255,255,0.06)";
-        e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)";
-      }}
+    <div 
+      className="w-full relative overflow-hidden bg-[#E5E9F0]"
+      style={{ height }}
     >
-      <span
+      {/* Chrome Top Bar */}
+      <div className="absolute top-0 left-0 right-0 h-10 bg-[#F9FAFB] border-b border-[#E5E9F0] flex items-center px-4 gap-4 z-20">
+        <div className="flex gap-1.5">
+          <div className="w-2.5 h-2.5 rounded-full bg-[#E5E9F0]" />
+          <div className="w-2.5 h-2.5 rounded-full bg-[#E5E9F0]" />
+          <div className="w-2.5 h-2.5 rounded-full bg-[#E5E9F0]" />
+        </div>
+        <div className="flex-1 bg-white border border-[#E5E9F0] rounded-md h-6 mx-4" />
+      </div>
+
+      {/* Website Typographic Details */}
+      <div 
+        className="absolute top-10 left-0 right-0 bottom-0 bg-[#F9FAFB] transition-transform duration-500 ease-out flex flex-col items-center justify-center p-8 text-center z-10"
         style={{
-          width: "6px",
-          height: "6px",
-          borderRadius: "50%",
-          background: color,
-          flexShrink: 0,
-          boxShadow: `0 0 6px ${color}`,
+          transform: isHovered ? "scale(1.02)" : "scale(1)",
         }}
-      />
-      {name}
-    </span>
+      >
+        <span 
+          style={{ 
+            fontFamily: "sans-serif", 
+            fontSize: "40px", 
+            color: "#0A0A0A",
+            marginBottom: "16px",
+            lineHeight: 1.1,
+          }}
+        >
+          {project.title}
+        </span>
+        <span
+          style={{
+            fontFamily: "Roboto, sans-serif",
+            fontSize: "18px",
+            color: "#374151",
+            maxWidth: "80%",
+            lineHeight: 1.5,
+          }}
+        >
+          {project.hook}
+        </span>
+      </div>
+
+      {/* Hover Overlay */}
+      <div 
+        className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none transition-opacity duration-200"
+        style={{
+          background: "rgba(10,10,10,0.60)",
+          opacity: isHovered ? 1 : 0,
+        }}
+      >
+        <span 
+          style={{ 
+            fontFamily: "Roboto, sans-serif", 
+            fontSize: "18px", 
+            fontWeight: 500,
+            color: "white",
+            transform: isHovered ? "translateY(0)" : "translateY(10px)",
+            transition: "transform 0.3s ease-out",
+          }}
+        >
+          View Case Study →
+        </span>
+      </div>
+    </div>
   );
 }
 
-function ProjectCard({ project, index }: { project: Project; index: number }) {
-  const [visible, setVisible] = useState(false);
+function ProjectCard({ project, isHero }: { project: Project; isHero: boolean }) {
   const [hovered, setHovered] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  const MAX_PILLS = 5;
-  const visibleTech = project.techStack.slice(0, MAX_PILLS);
-  const extraCount = project.techStack.length - MAX_PILLS;
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          const timer = setTimeout(() => setVisible(true), index * 120);
-          return () => clearTimeout(timer);
-        }
-      },
-      { threshold: 0.15 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, [index]);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    e.currentTarget.style.setProperty("--mouse-x", `${x}%`);
-    e.currentTarget.style.setProperty("--mouse-y", `${y}%`);
-  };
-
-  // Curated aesthetic mesh backdrops for the project placeholders
-  const meshGradients = [
-    // Project 0 (Adunsville): Warm gold/coral
-    "radial-gradient(at 0% 0%, #D4AF37 0px, transparent 50%), radial-gradient(at 100% 100%, #1e1e1e 0px, transparent 60%), radial-gradient(at 100% 0%, #FF6B35 0px, transparent 50%), #131B2E",
-    // Project 1 (AncestryVault): Slate/electric blue/indigo
-    "radial-gradient(at 0% 0%, #4F46E5 0px, transparent 50%), radial-gradient(at 100% 100%, #111827 0px, transparent 60%), radial-gradient(at 100% 0%, #06B6D4 0px, transparent 50%), #0F172A",
-    // Project 2 (Nexus): Teal/emerald/gold
-    "radial-gradient(at 0% 0%, #0D9488 0px, transparent 50%), radial-gradient(at 100% 100%, #1a1f2c 0px, transparent 60%), radial-gradient(at 100% 0%, #44B78B 0px, transparent 50%), #131B2E",
-  ];
-
+  
   return (
     <div
-      ref={ref}
-      onMouseMove={handleMouseMove}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="glass glass-hover-spotlight"
+      className="flex flex-col group cursor-pointer"
       style={{
-        borderRadius: "24px",
+        background: "white",
+        border: "1px solid #E5E9F0",
+        borderRadius: "12px",
         overflow: "hidden",
-        background: "rgba(255,255,255,0.04)",
-        border: "1px solid rgba(255,255,255,0.08)",
-        opacity: visible ? 1 : 0,
-        transform: visible
-          ? hovered ? "translateY(-8px)" : "translateY(0)"
-          : "translateY(32px)",
-        transition: visible
-          ? "transform 400ms cubic-bezier(0.16,1,0.3,1), border-color 300ms ease, box-shadow 400ms ease, opacity 200ms ease"
-          : `opacity 0.8s cubic-bezier(0.16,1,0.3,1) ${index * 0.12}s, transform 0.8s cubic-bezier(0.16,1,0.3,1) ${index * 0.12}s`,
-        boxShadow: hovered
-          ? "0 24px 60px rgba(0,0,0,0.40), 0 0 20px rgba(255,107,53,0.1)"
-          : "0 8px 32px rgba(0,0,0,0.15)",
-        cursor: "pointer",
-        display: "flex",
-        flexDirection: "column",
       }}
     >
-      {/* Image area */}
-      <div style={{ position: "relative", height: "240px", overflow: "hidden", flexShrink: 0 }}>
-        {/* Placeholder gradient image */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            background: meshGradients[index % meshGradients.length],
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontSize: "56px",
-            transition: "transform 800ms cubic-bezier(0.16,1,0.3,1)",
-            transform: hovered ? "scale(1.08)" : "scale(1)",
-          }}
-        >
-          <span 
-            style={{ 
-              filter: hovered ? "drop-shadow(0 0 20px rgba(255,255,255,0.5))" : "none",
-              transition: "filter 300ms ease"
-            }}
-          >
-            {index === 0 ? "🏠" : index === 1 ? "🌳" : "📅"}
-          </span>
-        </div>
-
-        {/* Dark overlay on hover */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            background: "linear-gradient(to bottom, rgba(15,23,42,0.05), rgba(15,23,42,0.85))",
-            opacity: hovered ? 1 : 0.6,
-            transition: "opacity 300ms ease",
-          }}
-        />
-
-        {/* Industry tag */}
-        <div
-          style={{
-            position: "absolute",
-            top: "20px",
-            left: "20px",
-          }}
-        >
+      <BrowserFrame 
+        project={project} 
+        height={isHero ? "520px" : "320px"} 
+        isHovered={hovered} 
+      />
+      
+      <div className="flex flex-col" style={{ padding: isHero ? "32px" : "24px" }}>
+        <div className="flex items-center gap-3 mb-3">
           <span
             style={{
-              display: "inline-flex",
-              padding: "5px 14px",
-              borderRadius: "100px",
-              background: "rgba(255,107,53,0.18)",
-              border: "1px solid rgba(255,107,53,0.35)",
-              fontFamily: "var(--font-body)",
-              fontSize: "11px",
-              fontWeight: 700,
-              color: "var(--color-secondary)",
-              textTransform: "uppercase" as const,
-              letterSpacing: "0.08em",
-              boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+              fontFamily: "Roboto, sans-serif",
+              fontSize: "12px",
+              color: "#1B4FD8",
+              textTransform: "uppercase",
+              letterSpacing: "0.05em",
+              fontWeight: 500,
             }}
           >
             {project.industry}
           </span>
         </div>
-
-        {/* Hook text */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: "20px",
-            left: "20px",
-            right: "20px",
-            opacity: hovered ? 1 : 0.8,
-            transform: hovered ? "translateY(0)" : "translateY(4px)",
-            transition: "all 300ms ease",
-          }}
-        >
-          <p
-            style={{
-              fontFamily: "var(--font-headline)",
-              fontSize: "14px",
-              fontWeight: 600,
-              fontStyle: "italic",
-              color: "#ffffff",
-              textShadow: "0 2px 4px rgba(0,0,0,0.5)",
-            }}
-          >
-            "{project.hook}"
-          </p>
-        </div>
-      </div>
-
-      {/* Card content */}
-      <div style={{ padding: "28px 24px", flex: 1, display: "flex", flexDirection: "column", gap: "12px", zIndex: 1 }}>
+        
         <h3
           style={{
-            fontFamily: "var(--font-headline)",
-            fontSize: "22px",
-            fontWeight: 700,
-            color: "#ffffff",
-            lineHeight: 1.25,
-            transition: "color 200ms ease",
-          }}
-          onMouseEnter={(e) => {
-            if (hovered) e.currentTarget.style.color = "var(--color-secondary)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.color = "#ffffff";
+            fontFamily: "sans-serif",
+            fontSize: isHero ? "28px" : "24px",
+            color: "#0A0A0A",
+            marginBottom: "12px",
+            lineHeight: 1.1,
           }}
         >
           {project.title}
         </h3>
-
+        
         <p
           style={{
-            fontFamily: "var(--font-body)",
-            fontSize: "14px",
-            color: "var(--color-secondary)",
-            fontWeight: 600,
-            lineHeight: 1.4,
+            fontFamily: "Roboto, sans-serif",
+            fontSize: "15px",
+            color: "#374151",
+            lineHeight: 1.6,
+            marginBottom: isHero ? "24px" : "20px",
           }}
         >
           {project.metric}
         </p>
 
-        <p
-          style={{
-            fontFamily: "var(--font-body)",
-            fontSize: "14px",
-            lineHeight: 1.6,
-            color: "rgba(245,243,240,0.60)",
-            marginBottom: "8px",
-          }}
-        >
-          {project.description}
-        </p>
-
-        {/* Tech pills */}
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginTop: "auto" }}>
-          {visibleTech.map((tech) => (
-            <TechPill key={tech} name={tech} />
-          ))}
-          {extraCount > 0 && (
-            <span
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                padding: "4px 10px",
-                borderRadius: "100px",
-                background: "rgba(255,107,53,0.12)",
-                border: "1px solid rgba(255,107,53,0.25)",
-                fontFamily: "var(--font-tech)",
-                fontSize: "10px",
-                color: "var(--color-secondary)",
-                fontWeight: 600,
-              }}
-            >
-              +{extraCount} more
-            </span>
-          )}
-        </div>
-
-        {/* Live link */}
         <a
           href={project.liveUrl}
           target="_blank"
           rel="noopener noreferrer"
+          className="inline-flex items-center transition-colors hover:opacity-80"
           style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "8px",
-            marginTop: "16px",
-            paddingTop: "16px",
-            fontFamily: "var(--font-body)",
+            fontFamily: "Roboto, sans-serif",
             fontSize: "14px",
-            fontWeight: 700,
-            color: hovered ? "#ffffff" : "var(--color-accent)",
+            fontWeight: 500,
+            color: "#1B4FD8",
+            marginTop: "auto",
             textDecoration: "none",
-            transition: "all 200ms ease",
-            borderTop: "1px solid rgba(255,255,255,0.06)",
           }}
           onClick={(e) => e.stopPropagation()}
         >
-          <span>View Live Project</span>
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            style={{
-              transform: hovered ? "translate(3px,-3px)" : "none",
-              transition: "transform 250ms ease",
-              color: "var(--color-secondary)",
-            }}
-          >
-            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" strokeLinecap="round"/>
-            <path d="M15 3h6v6M10 14L21 3" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
+          View Case Study →
         </a>
       </div>
     </div>
@@ -368,7 +187,7 @@ export default function FeaturedProjects({ initialProjects }: FeaturedProjectsPr
         hook: (p as any).hook || p.title,
         techStack: p.tech_stack || [],
         liveUrl: p.live_url || "#",
-        imageUrl: p.image_url || "/images/placeholder.jpg",
+        imageUrl: p.image_url || "",
         isFeatured: p.is_featured,
       }))
     : PROJECTS.filter((p) => p.isFeatured);
@@ -377,93 +196,73 @@ export default function FeaturedProjects({ initialProjects }: FeaturedProjectsPr
     <section
       id="projects"
       ref={ref}
-      className="section-padding relative overflow-hidden"
       style={{
-        background: "#0F172A",
+        backgroundColor: "#F5F7FF",
+        padding: "120px clamp(24px, 8vw, 80px)",
       }}
     >
-      {/* Grid Pattern Overlay */}
-      <div className="absolute inset-0 grid-overlay opacity-20 pointer-events-none z-0" />
-
-      {/* Background blobs */}
-      <div
-        className="animate-blob-drift"
+      <div 
+        className="max-w-6xl mx-auto w-full relative z-10"
         style={{
-          position: "absolute",
-          width: "600px",
-          height: "600px",
-          top: "-200px",
-          right: "-200px",
-          borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(255,107,53,0.04) 0%, transparent 70%)",
-          pointerEvents: "none",
-          zIndex: 0,
-          "--blob-duration": "20s",
-          "--blob-delay": "2s",
-        } as React.CSSProperties}
-      />
-
-      <div className="max-w-6xl mx-auto relative z-10">
+          opacity: visible ? 1 : 0,
+          transform: visible ? "translateY(0)" : "translateY(24px)",
+          transition: "all 0.8s cubic-bezier(0.16,1,0.3,1)",
+        }}
+      >
         {/* Header */}
-        <div
-          className="mb-16"
-          style={{
-            opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(24px)",
-            transition: "all 0.8s cubic-bezier(0.16,1,0.3,1)",
-          }}
-        >
-          <div className="inline-flex items-center gap-2 mb-3">
-            <span
-              style={{
-                fontFamily: "var(--font-tech)",
-                fontSize: "12px",
-                color: "var(--color-secondary)",
-                letterSpacing: "0.15em",
-                textTransform: "uppercase",
-                fontWeight: 700,
-              }}
-            >
-              — Portfolio
-            </span>
-          </div>
-
-          <h2 className="section-heading" style={{ color: "#ffffff" }}>
-            Featured <span className="text-shimmer">Work</span>
+        <div className="mb-16">
+          <span
+            style={{
+              fontFamily: "Roboto, sans-serif",
+              fontSize: "12px",
+              fontWeight: 500,
+              color: "#1B4FD8",
+              textTransform: "uppercase",
+              letterSpacing: "0.1em",
+              display: "block",
+              marginBottom: "24px",
+            }}
+          >
+            Featured Work
+          </span>
+          <h2 
+            style={{ 
+              fontFamily: "sans-serif",
+              fontSize: "48px",
+              color: "#0A0A0A",
+              lineHeight: 1.1,
+              marginBottom: "16px",
+            }}
+          >
+            Projects built to perform.
           </h2>
-          <p className="section-subheading" style={{ color: "rgba(245,243,240,0.60)" }}>
-            Real projects. Real industries. Real results.
+          <p
+            style={{
+              fontFamily: "Roboto, sans-serif",
+              fontSize: "16px",
+              color: "#6B7280",
+            }}
+          >
+            Real clients. Real industries. Real results.
           </p>
         </div>
 
-        {/* Project Cards Grid */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
-            gap: "28px",
-          }}
-        >
-          {featured.map((project, i) => (
-            <ProjectCard key={project.id} project={project} index={i} />
-          ))}
-        </div>
+        {/* 2-column asymmetric grid */}
+        {featured.length > 0 && (
+          <div className="flex flex-col gap-8">
+            {/* HERO CARD (Full Width) */}
+            <ProjectCard project={featured[0]} isHero={true} />
 
-        {/* View all CTA */}
-        <div
-          className="mt-16 text-center"
-          style={{
-            opacity: visible ? 1 : 0,
-            transition: "opacity 0.8s ease 0.6s",
-          }}
-        >
-          <a href="#contact" className="btn-secondary" style={{ borderColor: "rgba(255,107,53,0.50)", backdropFilter: "blur(4px)" }}>
-            View All Projects
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </a>
-        </div>
+            {/* SMALLER CARDS (Grid) */}
+            {featured.length > 1 && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {featured.slice(1, 3).map((project) => (
+                  <ProjectCard key={project.id} project={project} isHero={false} />
+                ))}
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </section>
   );

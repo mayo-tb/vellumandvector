@@ -49,7 +49,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
           rel="stylesheet"
         />
         {/* JSON-LD Organization Schema */}
@@ -78,7 +78,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+      <body style={{ fontFamily: "'Roboto', sans-serif" }}>
         {/* Google Analytics (gtag.js) */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-L8RLR4B5ZV"
