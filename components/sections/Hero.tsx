@@ -18,172 +18,125 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex flex-col items-center justify-center overflow-hidden bg-white"
-      style={{
-        minHeight: "calc(100vh - 100px)",
-        padding: "60px 0 40px",
-      }}
+      className="relative flex flex-col justify-center bg-white border-b border-[#E5E9F0] py-16 lg:py-24 overflow-hidden"
     >
-      {/* Content Container: Two Column Layout */}
-      <div className="max-w-7xl mx-auto w-full flex flex-col lg:flex-row gap-16 lg:gap-8 items-center relative z-10" style={{ padding: "0 clamp(24px, 8vw, 80px)" }}>
-        
-        {/* Left Column (55%) */}
-        <div 
-          className="w-full lg:w-[55%] text-left"
-          style={{
-            opacity: mounted ? 1 : 0,
-            transform: mounted ? "translateY(0)" : "translateY(24px)",
-            transition: "all 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s",
-          }}
-        >
-          {/* Label */}
-          <div className="flex items-center gap-2 mb-[40px]">
-            <div className="w-[6px] h-[6px] rounded-full" style={{ background: "#1B4FD8" }} />
-            <span style={{ fontFamily: "Roboto, sans-serif", fontSize: "12px", fontWeight: 500, color: "#6B7280" }}>
-              Lagos GRA · Premium Web Studio
-            </span>
-          </div>
-
-          {/* Headline */}
-          <h1
-            className="mb-6 md:text-[72px] text-[56px] tracking-tight"
+      <div className="max-w-7xl mx-auto w-full px-6 sm:px-8 lg:px-12">
+        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+          
+          {/* Left Column (54%): Core Value Proposition & Metrics */}
+          <div 
+            className="w-full lg:w-[54%] text-left"
             style={{
-              fontFamily: "sans-serif",
-              lineHeight: 1.08,
-              color: "#0A0A0A",
+              opacity: mounted ? 1 : 0,
+              transform: mounted ? "translateY(0)" : "translateY(16px)",
+              transition: "all 0.8s cubic-bezier(0.16,1,0.3,1) 0.15s",
             }}
           >
-            We build websites Lagos businesses are proud to send clients to.
-          </h1>
+            {/* Studio Eyebrow Tag */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EEF2FF] border border-[#DCE4FF] mb-6">
+              <span className="w-2 h-2 rounded-full bg-[#1B4FD8]" />
+              <span className="text-[12px] font-semibold text-[#1B4FD8] tracking-wide">
+                Lagos GRA · Premium Web Studio
+              </span>
+            </div>
 
-          {/* Subtext */}
-          <p
-            className="mb-8"
-            style={{
-              fontFamily: "Roboto, sans-serif",
-              fontSize: "18px",
-              fontWeight: 400,
-              color: "#4B5563",
-            }}
-          >
-            Custom-engineered. React + Django. Delivered in 2–8 weeks.
-          </p>
+            {/* Main Headline */}
+            <h1 className="text-4xl sm:text-5xl lg:text-[54px] xl:text-[58px] font-extrabold tracking-[-0.035em] leading-[1.12] text-[#0A0A0A] mb-6">
+              We build websites Lagos businesses are proud to send clients to.
+            </h1>
 
-          {/* CTAs */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
-            <button
-              onClick={() => handleCTAClick("#projects")}
-              className="transition-opacity hover:opacity-90 flex items-center justify-center"
-              style={{
-                background: "#1B4FD8",
-                color: "white",
-                fontFamily: "Roboto, sans-serif",
-                fontSize: "15px",
-                fontWeight: 500,
-                padding: "14px 28px",
-                borderRadius: "8px",
-                border: "none",
-                cursor: "pointer",
-              }}
-            >
-              See Our Work →
-            </button>
-            <button
-              onClick={() => handleCTAClick("#contact")}
-              className="hover:underline transition-all"
-              style={{
-                fontFamily: "Roboto, sans-serif",
-                fontSize: "13px",
-                color: "#9CA3AF",
-                background: "none",
-                border: "none",
-                cursor: "pointer",
-                padding: "0",
-              }}
-            >
-              or start a project conversation
-            </button>
-          </div>
-        </div>
+            {/* Subtext */}
+            <p className="text-base sm:text-lg text-[#4B5563] leading-relaxed mb-8 max-w-xl font-normal">
+              Custom-engineered digital experiences built with React, Next.js, and Django. Fast turnaround, transparent milestone pricing, and dedicated engineering.
+            </p>
 
-        {/* Right Column (45%) */}
-        <div 
-          className="w-full lg:w-[45%] flex justify-center lg:justify-end mt-10 lg:mt-0"
-          style={{
-            opacity: mounted ? 1 : 0,
-            transform: mounted ? "translateX(0)" : "translateX(40px)",
-            transition: "all 1s cubic-bezier(0.16,1,0.3,1) 0.4s",
-          }}
-        >
-          {/* Inner wrapper to keep circle and frame aligned */}
-          <div className="relative w-full max-w-[540px]">
-            {/* Background Shape */}
-            <div
-              className="absolute rounded-full"
-              style={{
-                width: "110%",
-                aspectRatio: "1/1",
-                background: "#EEF2FF",
-                zIndex: -1,
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-              }}
-            />
+            {/* CTAs */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-10">
+              <button
+                onClick={() => handleCTAClick("#projects")}
+                className="inline-flex items-center justify-center bg-[#1B4FD8] hover:bg-[#143FB3] text-white font-semibold text-[15px] px-7 py-3.5 rounded-lg transition-all shadow-[0_4px_14px_rgba(27,79,216,0.25)] hover:shadow-[0_6px_20px_rgba(27,79,216,0.35)] cursor-pointer border-none"
+              >
+                See Our Work →
+              </button>
+              <button
+                onClick={() => handleCTAClick("#contact")}
+                className="inline-flex items-center justify-center bg-white hover:bg-[#F8FAFC] text-[#0A0A0A] font-semibold text-[15px] px-6 py-3.5 rounded-lg border border-[#E5E9F0] hover:border-[#CBD5E1] transition-all cursor-pointer"
+              >
+                Start a Project Conversation
+              </button>
+            </div>
 
-            {/* Browser Frame */}
-            <div
-              className="relative w-full bg-white rounded-xl overflow-hidden flex flex-col"
-              style={{
-                boxShadow: "0 20px 60px rgba(0,0,0,0.10)",
-                aspectRatio: "16/11",
-              }}
-            >
-            {/* Chrome Top Bar */}
-            <div className="h-10 bg-[#F9FAFB] border-b border-[#E5E9F0] flex items-center px-4 gap-4">
-              {/* 3 Dots */}
-              <div className="flex gap-1.5">
-                <div className="w-2.5 h-2.5 rounded-full bg-[#E5E9F0]" />
-                <div className="w-2.5 h-2.5 rounded-full bg-[#E5E9F0]" />
-                <div className="w-2.5 h-2.5 rounded-full bg-[#E5E9F0]" />
+            {/* Value Metrics Grid: Perfectly Aligned */}
+            <div className="grid grid-cols-3 gap-6 pt-8 border-t border-[#E5E9F0] w-full max-w-lg">
+              <div>
+                <p className="text-2xl sm:text-3xl font-extrabold text-[#0A0A0A] tracking-tight">3+</p>
+                <p className="text-xs sm:text-sm font-medium text-[#6B7280] mt-1">Live Projects</p>
               </div>
-              {/* URL Bar */}
-              <div className="flex-1 bg-white border border-[#E5E9F0] rounded-md h-6 mx-4" />
+              <div>
+                <p className="text-2xl sm:text-3xl font-extrabold text-[#0A0A0A] tracking-tight">2–8</p>
+                <p className="text-xs sm:text-sm font-medium text-[#6B7280] mt-1">Weeks Delivery</p>
+              </div>
+              <div>
+                <p className="text-2xl sm:text-3xl font-extrabold text-[#1B4FD8] tracking-tight">₦</p>
+                <p className="text-xs sm:text-sm font-medium text-[#6B7280] mt-1">Naira Pricing</p>
+              </div>
             </div>
+          </div>
 
-            {/* Project Preview Content */}
-            <div className="relative flex-1 w-full h-full bg-[#0F172A]">
-              <Image 
-                src="/hero_image.png" 
-                alt="Project Preview" 
-                fill
-                className="object-cover"
-              />
+          {/* Right Column (46%): Architectural Device Showcase */}
+          <div 
+            className="w-full lg:w-[46%] flex justify-center lg:justify-end"
+            style={{
+              opacity: mounted ? 1 : 0,
+              transform: mounted ? "translateY(0)" : "translateY(24px)",
+              transition: "all 0.9s cubic-bezier(0.16,1,0.3,1) 0.3s",
+            }}
+          >
+            <div className="relative w-full max-w-[540px]">
+              
+              {/* Browser Window Frame */}
+              <div className="w-full bg-white rounded-xl border border-[#E5E9F0] shadow-[0_20px_50px_-15px_rgba(27,79,216,0.12),0_0_0_1px_rgba(0,0,0,0.05)] overflow-hidden flex flex-col">
+                
+                {/* Chrome Top Bar */}
+                <div className="h-10 bg-[#F8FAFC] border-b border-[#E5E9F0] flex items-center px-4 gap-3">
+                  <div className="flex gap-1.5">
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#EF4444]/60" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#F59E0B]/60" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#10B981]/60" />
+                  </div>
+                  <div className="flex-1 bg-white border border-[#E5E9F0] rounded h-5 flex items-center px-2.5 gap-1.5 overflow-hidden">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" strokeWidth="2.5">
+                      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                      <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                    </svg>
+                    <span className="text-[10px] text-[#6B7280] font-mono truncate">
+                      adunsville-residence.vercel.app
+                    </span>
+                  </div>
+                </div>
+
+                {/* Project Visual Showcase */}
+                <div className="relative aspect-[16/11] bg-[#0F172A] w-full overflow-hidden">
+                  <Image 
+                    src="/hero_image.png" 
+                    alt="Vellum & Vector Client Showcase" 
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 540px"
+                    priority
+                    className="object-cover"
+                  />
+                  {/* Subtle Corner Badge */}
+                  <div className="absolute bottom-3 right-3 bg-white/95 backdrop-blur-xs border border-[#E5E9F0] px-2.5 py-1 rounded text-[11px] font-medium text-[#0A0A0A] shadow-xs">
+                    Live Production Preview
+                  </div>
+                </div>
+
+              </div>
+
             </div>
           </div>
-          </div>
+
         </div>
-      </div>
-
-      {/* Slim Trust Bar */}
-      <div 
-        className="w-full max-w-7xl mx-auto mt-20 pt-6"
-        style={{
-          borderTop: "1px solid #E5E9F0",
-          opacity: mounted ? 1 : 0,
-          transition: "opacity 1s ease 0.6s",
-        }}
-      >
-        <p
-          className="text-center"
-          style={{
-            fontFamily: "Roboto, sans-serif",
-            fontSize: "12px",
-            color: "#9CA3AF",
-          }}
-        >
-          Trusted by businesses in Lagos · Victoria Island · Lekki · Abuja
-        </p>
       </div>
     </section>
   );

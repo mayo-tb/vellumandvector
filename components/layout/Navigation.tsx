@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import { NAV_LINKS, SITE } from "@/lib/constants";
 
@@ -9,7 +10,7 @@ export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 40);
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -30,46 +31,43 @@ export default function Navigation() {
 
   return (
     <>
-      {/* Announcement Bar */}
-      <div 
-        style={{
-          background: "#F0F4FF",
-          height: "36px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          width: "100%",
-          position: "relative",
-          zIndex: 51,
-        }}
-      >
-        <span style={{ fontFamily: "Roboto, sans-serif", fontSize: "12px", color: "#1B4FD8", fontWeight: 500 }}>
-          Lagos GRA · Premium Web Studio · Currently accepting projects
-        </span>
+      {/* Top Announcement Bar */}
+      <div className="bg-[#F8FAFC] border-b border-[#E5E9F0] h-9 flex items-center justify-center px-4">
+        <p className="text-[12px] font-medium text-[#4B5563] tracking-wide flex items-center gap-2">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#1B4FD8]" />
+          <span>Lagos GRA</span>
+          <span className="text-[#9CA3AF]">·</span>
+          <span>Web Design & Engineering Studio</span>
+          <span className="text-[#9CA3AF]">·</span>
+          <span className="text-[#1B4FD8] font-semibold">Available for New Projects</span>
+        </p>
       </div>
 
       <header
-        className="sticky top-0 left-0 right-0 z-50 transition-all duration-300"
-        style={{
-          background: isScrolled ? "rgba(255, 255, 255, 0.90)" : "#ffffff",
-          backdropFilter: isScrolled ? "blur(12px)" : "none",
-          WebkitBackdropFilter: isScrolled ? "blur(12px)" : "none",
-          boxShadow: isScrolled ? "0 1px 0 #E5E9F0" : "none",
-        }}
+        className={`sticky top-0 left-0 right-0 z-50 transition-all duration-200 ${
+          isScrolled
+            ? "bg-white/95 backdrop-blur-md border-b border-[#E5E9F0] shadow-[0_2px_12px_rgba(0,0,0,0.03)]"
+            : "bg-white border-b border-[#F1F5F9]"
+        }`}
       >
-        <nav className="flex items-center justify-between py-4 max-w-7xl mx-auto" style={{ paddingLeft: "clamp(24px, 8vw, 80px)", paddingRight: "clamp(24px, 8vw, 80px)" }}>
-          {/* Logo */}
+        <nav className="flex items-center justify-between h-[72px] max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+          {/* Logo Lockup */}
           <Link
             href="/"
-            className="flex items-center gap-2 group"
+            className="flex items-center gap-3 group text-decoration-none"
             aria-label={SITE.name}
-            style={{ textDecoration: "none" }}
           >
-            <span
-              className="text-[#0A0A0A]"
-              style={{ fontFamily: "Roboto, sans-serif", fontWeight: 600, fontSize: "18px" }}
-            >
-              Vellum&Vector
+            <div className="w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center border border-[#E5E9F0] bg-white shadow-xs">
+              <Image
+                src="/icon.png"
+                alt="Vellum & Vector Logo"
+                width={32}
+                height={32}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <span className="text-[#0A0A0A] font-bold text-[18px] tracking-tight">
+              Vellum <span className="text-[#1B4FD8]">&</span> Vector
             </span>
           </Link>
 
@@ -79,26 +77,10 @@ export default function Navigation() {
               <li key={link.href}>
                 <button
                   onClick={() => handleNavClick(link.href)}
-                  className="relative group flex flex-col items-center justify-center"
-                  style={{
-                    color: "#0A0A0A",
-                    fontFamily: "Roboto, sans-serif",
-                    fontWeight: 450,
-                    fontSize: "14px",
-                    background: "none",
-                    border: "none",
-                    cursor: "pointer",
-                    padding: "4px 0",
-                  }}
+                  className="relative group text-[14px] font-medium text-[#4B5563] hover:text-[#0A0A0A] transition-colors py-1 cursor-pointer bg-transparent border-none"
                 >
-                  <span className="transition-colors duration-150">
-                    {link.label}
-                  </span>
-                  {/* Animated underline */}
-                  <span
-                    className="absolute -bottom-1 h-[2px] transition-transform duration-150 origin-center scale-x-0 group-hover:scale-x-100"
-                    style={{ background: "#1B4FD8", width: "100%" }}
-                  />
+                  <span>{link.label}</span>
+                  <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-[#1B4FD8] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-200" />
                 </button>
               </li>
             ))}
@@ -108,50 +90,32 @@ export default function Navigation() {
           <a
             href="#contact"
             onClick={(e) => { e.preventDefault(); handleNavClick("#contact"); }}
-            className="hidden md:inline-flex items-center justify-center transition-opacity hover:opacity-90"
-            style={{ 
-              background: "#1B4FD8", 
-              color: "white", 
-              padding: "10px 22px", 
-              borderRadius: "6px", 
-              fontFamily: "Roboto, sans-serif", 
-              fontWeight: 500, 
-              fontSize: "14px",
-              textDecoration: "none"
-            }}
+            className="hidden md:inline-flex items-center justify-center bg-[#1B4FD8] hover:bg-[#143FB3] text-white text-[14px] font-semibold px-5 py-2.5 rounded-lg transition-all shadow-[0_2px_8px_rgba(27,79,216,0.20)] hover:shadow-[0_4px_12px_rgba(27,79,216,0.30)] text-decoration-none cursor-pointer"
           >
             Start a Project
           </a>
 
           {/* Mobile Hamburger */}
           <button
-            className="md:hidden flex flex-col gap-1.5 p-2 rounded-lg transition-colors duration-200"
+            className="md:hidden flex flex-col gap-1.5 p-2 rounded-lg transition-colors cursor-pointer bg-transparent border-none min-w-[44px] min-h-[44px] justify-center items-center"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={isMenuOpen}
-            style={{ minWidth: "44px", minHeight: "44px", justifyContent: "center", alignItems: "center", background: "none", border: "none" }}
           >
             <span
-              className="block w-5 h-0.5 rounded-full transition-all duration-300"
-              style={{
-                background: "#0A0A0A",
-                transform: isMenuOpen ? "rotate(45deg) translate(3px, 3px)" : "none",
-              }}
+              className={`block w-5 h-0.5 bg-[#0A0A0A] rounded-full transition-transform duration-300 ${
+                isMenuOpen ? "rotate-45 translate-y-2" : ""
+              }`}
             />
             <span
-              className="block w-5 h-0.5 rounded-full transition-all duration-300"
-              style={{
-                background: "#0A0A0A",
-                opacity: isMenuOpen ? 0 : 1,
-                transform: isMenuOpen ? "scaleX(0)" : "none",
-              }}
+              className={`block w-5 h-0.5 bg-[#0A0A0A] rounded-full transition-opacity duration-300 ${
+                isMenuOpen ? "opacity-0" : "opacity-1"
+              }`}
             />
             <span
-              className="block w-5 h-0.5 rounded-full transition-all duration-300"
-              style={{
-                background: "#0A0A0A",
-                transform: isMenuOpen ? "rotate(-45deg) translate(3px, -3px)" : "none",
-              }}
+              className={`block w-5 h-0.5 bg-[#0A0A0A] rounded-full transition-transform duration-300 ${
+                isMenuOpen ? "-rotate-45 -translate-y-2" : ""
+              }`}
             />
           </button>
         </nav>
@@ -159,93 +123,58 @@ export default function Navigation() {
 
       {/* Mobile Drawer */}
       <div
-        className="fixed inset-0 z-40 md:hidden transition-all duration-300"
-        style={{
-          opacity: isMenuOpen ? 1 : 0,
-          pointerEvents: isMenuOpen ? "all" : "none",
-        }}
+        className={`fixed inset-0 z-50 md:hidden transition-opacity duration-300 ${
+          isMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
         aria-hidden={!isMenuOpen}
       >
         {/* Backdrop */}
         <div
-          className="absolute inset-0"
-          style={{ background: "rgba(10,10,10,0.60)", backdropFilter: "blur(4px)" }}
+          className="absolute inset-0 bg-black/40 backdrop-blur-xs"
           onClick={() => setIsMenuOpen(false)}
         />
 
         {/* Drawer Panel */}
         <div
-          className="absolute top-0 right-0 h-full w-80 max-w-full flex flex-col"
-          style={{
-            background: "white",
-            borderLeft: "1px solid #E5E9F0",
-            transform: isMenuOpen ? "translateX(0)" : "translateX(100%)",
-            transition: "transform 350ms cubic-bezier(0.16, 1, 0.3, 1)",
-          }}
+          className={`absolute top-0 right-0 h-full w-80 max-w-full bg-white border-l border-[#E5E9F0] flex flex-col transition-transform duration-300 ${
+            isMenuOpen ? "translate-x-0" : "translate-x-full"
+          }`}
         >
-          {/* Drawer Header */}
-          <div className="flex items-center justify-between px-6 py-5" style={{ borderBottom: "1px solid #E5E9F0" }}>
-            <span style={{ fontFamily: "Roboto, sans-serif", color: "#0A0A0A", fontWeight: 600 }}>
-              Menu
-            </span>
+          {/* Header */}
+          <div className="flex items-center justify-between px-6 py-5 border-b border-[#E5E9F0]">
+            <span className="font-bold text-[#0A0A0A] text-base">Menu</span>
             <button
               onClick={() => setIsMenuOpen(false)}
-              className="rounded-lg flex items-center justify-center"
-              style={{ width: "44px", height: "44px", color: "#0A0A0A", background: "#F0F4FF", border: "none", cursor: "pointer", fontSize: "20px" }}
+              className="w-9 h-9 rounded-lg bg-[#F1F5F9] text-[#0A0A0A] flex items-center justify-center border-none cursor-pointer text-base"
               aria-label="Close menu"
             >
               ✕
             </button>
           </div>
 
-          {/* Drawer Links */}
-          <nav className="flex-1 flex flex-col px-6 py-8 gap-1">
-            {NAV_LINKS.map((link, i) => (
+          {/* Links */}
+          <nav className="flex-1 flex flex-col px-6 py-6 gap-2">
+            {NAV_LINKS.map((link) => (
               <button
                 key={link.href}
                 onClick={() => handleNavClick(link.href)}
-                className="text-left py-4 text-2xl border-b transition-colors duration-200"
-                style={{
-                  fontFamily: "Roboto, sans-serif",
-                  fontWeight: 500,
-                  color: "#0A0A0A",
-                  background: "none",
-                  border: "none",
-                  borderBottom: "1px solid #E5E9F0",
-                  cursor: "pointer",
-                  animationDelay: `${i * 60}ms`,
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#1B4FD8")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "#0A0A0A")}
+                className="text-left py-3 text-lg font-medium text-[#0A0A0A] hover:text-[#1B4FD8] border-b border-[#F1F5F9] bg-transparent cursor-pointer transition-colors"
               >
                 {link.label}
               </button>
             ))}
           </nav>
 
-          {/* Drawer Footer */}
-          <div className="px-6 pb-8 flex flex-col gap-4">
+          {/* Footer CTA */}
+          <div className="p-6 border-t border-[#E5E9F0] flex flex-col gap-3">
             <a
               href="#contact"
               onClick={(e) => { e.preventDefault(); handleNavClick("#contact"); }}
-              className="flex items-center justify-center transition-opacity hover:opacity-90 w-full"
-              style={{ 
-                background: "#1B4FD8", 
-                color: "white", 
-                padding: "14px 22px", 
-                borderRadius: "6px", 
-                fontFamily: "Roboto, sans-serif", 
-                fontWeight: 500, 
-                fontSize: "15px",
-                textDecoration: "none"
-              }}
+              className="flex items-center justify-center bg-[#1B4FD8] hover:bg-[#143FB3] text-white font-semibold py-3 rounded-lg text-[14px] transition-colors text-decoration-none"
             >
               Start a Project
             </a>
-            <p
-              className="text-center text-xs mt-2"
-              style={{ fontFamily: "Roboto, sans-serif", color: "rgba(10,10,10,0.50)" }}
-            >
+            <p className="text-center text-xs text-[#6B7280]">
               Lagos GRA · Premium Web Studio
             </p>
           </div>
